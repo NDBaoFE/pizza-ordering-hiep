@@ -1,0 +1,17 @@
+import React from 'react'
+import * as Styled from './Checkout.styled'
+
+const Checkout = (props) => {
+  return (
+    <Styled.Background>
+      <Styled.Cart>
+        <Styled.Header>Shooping Cart</Styled.Header>
+      </Styled.Cart>
+      <Styled.Payment>Payment</Styled.Payment>
+    </Styled.Background>
+  )
+}
+
+Checkout.propTypes = {}
+
+export default Checkout
