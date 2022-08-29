@@ -1,19 +1,15 @@
-import { useForm } from 'react-hook-form'
+import { useForm, FormProvider } from 'react-hook-form'
+import FormInput from '../../Component/form-input/form-input.component'
+import './sign-up.component.scss'
 import {
   createAuthUserWithEmailAndPasword,
   createUserDoccumentFromAuth,
 } from '../../utils/firebase.utils'
 
 const SignUp = () => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    getValues,
-    resetField,
-  } = useForm()
+  const methods = useForm()
   const onSubmit = async () => {
-    const values = getValues()
+    const values = methods.getValues()
     const { displayName, email, password, confirmPassword } = values
 
     if (password !== confirmPassword) {
@@ -37,22 +33,20 @@ const SignUp = () => {
       }
     }
   }
-
   return (
     <>
-      <h1>Sign Up with your email </h1>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <label> displayName</label>
-        <input {...register('displayName', { required: true })} />
-        <label> Email</label>
-        <input type="email" {...register('email', { required: true })} />
-        <label> password</label>
-        <input type="password" {...register('password', { required: true })} />
-        <label> confirmPassword</label>
-        <input type="password" {...register('confirmPassword', { required: true })} />
-        {errors.password && <p>This field is required</p>}
-        <input type="submit" />
-      </form>
+      <FormProvider {...methods}>
+        <div className="container">
+          <form className="signUpForm" onSubmit={methods.handleSubmit(onSubmit)}>
+            <h1 className="title">Sign Up</h1>
+            <FormInput label="DisplayName" nameRegister={'displayName'} />
+            <FormInput type="email" label="Email" nameRegister={'email'} />
+            <FormInput type="password" label="Password" nameRegister={'password'} />
+            <FormInput type="password" label="Confirm Password" nameRegister={'confirmPassword'} />
+            <input className="signUpBtn" type="submit" value={'Sign Up'} />
+          </form>
+        </div>
+      </FormProvider>
     </>
   )
 }
