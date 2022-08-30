@@ -10,20 +10,14 @@ const Checkout = (props) => {
     { pizza: 'Đăng', amount: 1, price: 75 },
   ])
 
+  const calculateTotalPrice = () =>
+    myOrder.reduce((total, item) => (total += item.amount * item.price), 0)
+
   const [form, setForm] = React.useState({
     phone: '',
     address: '',
-    totalPrice: 0,
+    totalPrice: calculateTotalPrice(),
   })
-
-  React.useEffect(
-    () =>
-      setForm({
-        ...form,
-        totalPrice: myOrder.reduce((total, item) => (total += item.amount * item.price), 0),
-      }),
-    [form, myOrder],
-  )
 
   const onSubmit = () => {
     alert(JSON.stringify(form))
@@ -34,6 +28,10 @@ const Checkout = (props) => {
       order.pizza === item.pizza ? { ...order, amount: --item.amount } : order,
     )
     setMyOrder(newOrder)
+    setForm({
+      ...form,
+      totalPrice: calculateTotalPrice(),
+    })
   }
 
   const handleIncrease = (item) => {
@@ -41,6 +39,10 @@ const Checkout = (props) => {
       order.pizza === item.pizza ? { ...order, amount: ++item.amount } : order,
     )
     setMyOrder(newOrder)
+    setForm({
+      ...form,
+      totalPrice: calculateTotalPrice(),
+    })
   }
 
   return (

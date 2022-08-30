@@ -3,7 +3,7 @@ import Checkout from '../pages/Checkout'
 
 const privateRoutes = [{ name: 'checkout', path: '/checkout', element: <Checkout /> }]
 
-const RouterComponent = (
+const RouterComponent = () => (
   <BrowserRouter>
     <Routes>
       {privateRoutes.map((route) => (
