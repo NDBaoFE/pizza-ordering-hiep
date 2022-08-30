@@ -1,11 +1,14 @@
-// import MainRoute from './router'
-// import SignIn from './router/sign-in/sign-in.component'
-import SignUp from './router/sign-up-page/sign-up.component'
+import Switch from './router'
+import { useContext } from 'react'
+
+// import SignUp from './router/sign-up-page/sign-up.component'
+
 function App() {
-  // <SignIn />
+  //
+  // <SignUp />
   return (
     <>
-      <SignUp />
+      <Switch />
     </>
   )
 }

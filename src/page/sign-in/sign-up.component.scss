@@ -1,5 +1,5 @@
 $main-color: #f17119;
-
+$sub: #ff7d26;
 .container {
   background: url(../../assets/photo-1509358271058-acd22cc93898.jpg);
   width: 100vw;
@@ -39,6 +39,11 @@ $main-color: #f17119;
       border: none;
       cursor: pointer;
       border-radius: 15px;
+      transition: all 0.3s;
+      box-shadow: 0px 10px 15px #3d3d3d;
+      &:hover {
+        background-color: $sub;
+      }
     }
     .title {
       padding: 20px 0px;

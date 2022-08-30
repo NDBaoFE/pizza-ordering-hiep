@@ -1,33 +1,40 @@
-import { Routes, Route } from 'react-router-dom'
-import Navigation from './Navigation/Navigation.component'
+import { Routes, Route, Navigate } from 'react-router-dom'
 
-const Home = () => {
-  return <h1> home Page</h1>
-}
-const Order = () => {
-  return <h1> Order Page</h1>
-}
+import SignIn from '../page/sign-in/sign-in.component'
+import Home from '../page/home'
+import { PrivateRoute } from './PrivateRoute.component'
+import { PublicRoute } from './PublicRoute.component'
 
-const AboutUs = () => {
-  return <h1> About Us Page</h1>
-}
+export const publicRoute = [
+  {
+    name: 'login',
+    path: '/login',
+    element: <SignIn />,
+  },
+]
+export const privateRoute = [
+  {
+    name: 'home',
+    path: '/',
+    element: <Home />,
+  },
+]
 
-const Menu = () => {
-  return <h1> Menu Page</h1>
-}
-
-const MainRoute = () => {
+export const Switch = () => {
   return (
     <Routes>
-      <Route path="/" element={<Navigation />}>
-        <Route index element={<Home />} />
-        <Route path="home" element={<Home />} />
-        <Route path="order" element={<Order />} />
-        <Route path="aboutUs" element={<AboutUs />} />
-        <Route path="menu" element={<Menu />} />
+      <Route path="/" element={<PrivateRoute />}>
+        {privateRoute.map((route) => (
+          <Route key={route.name} exact={true} path={route.path} element={route.element} />
+        ))}
       </Route>
+      <Route element={<PublicRoute />}>
+        {publicRoute.map((route) => (
+          <Route key={route.name} exact={true} path={route.path} element={route.element} />
+        ))}
+      </Route>
+      <Route element={<Navigate to="/" replace />} />
     </Routes>
   )
 }
-
-export default MainRoute
+export default Switch
