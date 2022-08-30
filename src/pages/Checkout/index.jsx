@@ -21,6 +21,11 @@ const Checkout = (props) => {
 
   const onSubmit = () => {
     alert(JSON.stringify(form))
+    setForm({
+      phone: '',
+      address: '',
+      totalPrice: calculateTotalPrice(),
+    })
   }
 
   const handleDecrease = (item) => {
