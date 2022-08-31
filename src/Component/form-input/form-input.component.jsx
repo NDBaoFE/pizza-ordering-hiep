@@ -1,20 +1,22 @@
 import { useFormContext } from 'react-hook-form'
-import './form-input.styles.scss'
+import { useState } from 'react'
+import './form-input.styles.jsx'
+import { FormInputLabel, Input, Group } from './form-input.styles.jsx'
 const FormInput = ({ label, nameRegister, ...otherProps }) => {
   const {
     register,
-    formState: { isDirty },
+    formState: { isDirty, errors },
   } = useFormContext()
 
+  // {errors.email && <p>Email is required</p>}
+  // {errors.password && <p>Password is required</p>}
+  // {errors.displayName && <p>Display Name is required</p>}
+  // {errors.confirmPassword && <p>Confirm Password is required</p>}
   return (
-    <div className="group">
-      {label && <label className={`${isDirty ? 'shrink' : ''} form-input-label`}>{label}</label>}
-      <input
-        className="form-input"
-        {...otherProps}
-        {...register(`${nameRegister}`, { required: true })}
-      />
-    </div>
+    <Group>
+      {label && <FormInputLabel shrink={isDirty}>{label}</FormInputLabel>}
+      <Input {...otherProps} {...register(`${nameRegister}`, { required: true })} />
+    </Group>
   )
 }
 
