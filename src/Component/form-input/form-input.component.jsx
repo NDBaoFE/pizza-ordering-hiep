@@ -15,7 +15,7 @@ const FormInput = ({ label, nameRegister, ...otherProps }) => {
   return (
     <Group>
       {label && <FormInputLabel shrink={isDirty}>{label}</FormInputLabel>}
-      <Input {...otherProps} {...register(`${nameRegister}`, { required: true })} />
+      <Input {...otherProps} {...register(`${nameRegister}`)} />
     </Group>
   )
 }

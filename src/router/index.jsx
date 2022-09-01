@@ -1,5 +1,5 @@
 import { Routes, Route, Navigate } from 'react-router-dom'
-
+import SignUp from '../page/sign-up/sign-up.component'
 import SignIn from '../page/sign-in/sign-in.component'
 import Home from '../page/home'
 import { PrivateRoute } from './PrivateRoute.component'
@@ -10,6 +10,11 @@ export const publicRoute = [
     name: 'login',
     path: '/login',
     element: <SignIn />,
+  },
+  {
+    name: 'signUp',
+    path: '/signUp',
+    element: <SignUp />,
   },
 ]
 export const privateRoute = [

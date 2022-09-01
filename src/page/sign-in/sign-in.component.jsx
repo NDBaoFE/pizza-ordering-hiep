@@ -4,26 +4,32 @@ import {
   signInAuthUserWithEmailAndPasword,
 } from '../../utils/firebase.utils'
 import { useForm, FormProvider } from 'react-hook-form'
+import { Link } from 'react-router-dom'
 import FormInput from '../../Component/form-input/form-input.component'
-import { useContext } from 'react'
-import { UserContext } from '../../context/user.context'
+// import { useContext } from 'react'
+// import { UserContext } from '../../context/user.context'
 import './sign-in.component.scss'
 
 const SignIn = () => {
   const logGoogleUser = async () => {
-    const { user } = await SignInWithGooglePopUp()
-    const usetDocRef = await createUserDoccumentFromAuth(user)
-    setCurrentUser(user.uid)
+    await SignInWithGooglePopUp()
+    // const usetDocRef = await createUserDoccumentFromAuth(user)
+    // setCurrentUser(user.uid) const { user } =
   }
-  const { setCurrentUser } = useContext(UserContext)
-  const methods = useForm()
+  // const { setCurrentUser } = useContext(UserContext)
+  const methods = useForm({
+    defaultValues: {
+      email: '',
+      password: '',
+    },
+  })
 
   const onSubmit = async () => {
     const { email, password } = methods.getValues()
-
+    methods.reset()
     try {
       const { user } = await signInAuthUserWithEmailAndPasword(email, password)
-      setCurrentUser(user.uid)
+      // setCurrentUser(user.uid)
     } catch (error) {
       switch (error.code) {
         case 'auth/invalid-email':
@@ -46,9 +52,9 @@ const SignIn = () => {
           break
 
         default:
-          alert('Sorry, something is wrong!')
+          console.log('user Sign In encountered an error', error)
+          alert('Sorry, you need to fill in all the blank')
       }
-      console.log('user Sign In encountered an error', error)
     }
   }
 
@@ -67,6 +73,13 @@ const SignIn = () => {
             <button type="button " className="googleBtn" onClick={logGoogleUser}>
               sign in with google
             </button>
+            <div className="">
+              Don't have account?{' '}
+              <Link to="/signUp" style={{ color: '#f17119' }}>
+                {' '}
+                Sign Up
+              </Link>
+            </div>
           </form>
         </div>
       </FormProvider>
