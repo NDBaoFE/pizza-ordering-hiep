@@ -6,7 +6,7 @@ import { Provider } from 'react-redux'
 import App from './App'
 import reportWebVitals from './reportWebVitals'
 // import { UserProvider } from './context/user.context'
-import { store } from './store/store'
+import store from './store/store'
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
   <React.StrictMode>

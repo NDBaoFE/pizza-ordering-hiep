@@ -1,9 +1,9 @@
 import Switch from './router'
 import { useEffect } from 'react'
 import { onAuthStateChangedListener, createUserDoccumentFromAuth } from './utils/firebase.utils'
-// import { createAction } from './utils/reducer.utils'
-import { setCurrentUser } from './store/user/user.action'
 import { useDispatch } from 'react-redux'
+import { userReducer } from './store/user/user.reducer'
+
 function App() {
   const dispatch = useDispatch()
 
@@ -13,7 +13,7 @@ function App() {
       if (user) {
         createUserDoccumentFromAuth(user)
       }
-      dispatch(setCurrentUser(user))
+      dispatch(userReducer(user))
     })
     return unsubscribe
   }, [dispatch])
