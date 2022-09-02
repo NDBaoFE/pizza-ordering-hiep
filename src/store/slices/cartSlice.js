@@ -1,8 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit'
-
+import LocalStorageUtils from '../../utils/LocalStorageUtils'
 const initialState = {
   isCartOpen: false,
-  cartItems: [],
+  cartItems: LocalStorageUtils.getItem('cart') || [],
 }
 
 const cartSlice = createSlice({
@@ -22,10 +22,12 @@ const cartSlice = createSlice({
       } else {
         state.cartItems.push(action.payload)
       }
+      LocalStorageUtils.setItem('cart', state.cartItems)
     },
 
     removeItem(state, action) {
       state.cartItems = state.cartItems.filter((item) => item.id !== action.payload)
+      LocalStorageUtils.setItem('cart', state.cartItems)
     },
 
     incrementItem(state, action) {
@@ -35,6 +37,7 @@ const cartSlice = createSlice({
         }
         return item
       })
+      LocalStorageUtils.setItem('cart', state.cartItems)
     },
 
     decrementItem(state, action) {
@@ -46,6 +49,7 @@ const cartSlice = createSlice({
           return item
         })
         .filter((item) => item.quantity !== 0)
+      LocalStorageUtils.setItem('cart', state.cartItems)
     },
   },
 })
