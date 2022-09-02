@@ -10,14 +10,15 @@ const Checkout = (props) => {
   const { cartItems } = useSelector((state) => state.cart)
   const dispatch = useDispatch()
 
-  const [myOrder, setMyOrder] = React.useState([
-    { name: 'Bảo', quantity: 3, price: 25 },
-    { name: 'Minh', quantity: 2, price: 50 },
-    { name: 'Đăng', quantity: 1, price: 75 },
-  ])
+  // const [myOrder, setMyOrder] = React.useState([
+  //   { name: 'Bảo', quantity: 3, price: 25 },
+  //   { name: 'Minh', quantity: 2, price: 50 },
+  //   { name: 'Đăng', quantity: 1, price: 75 },
+  // ])
 
   const calculateTotalPrice = () =>
-    myOrder.reduce((total, item) => (total += item.quantity * item.price), 0)
+    // myOrder.reduce((total, item) => (total += item.quantity * item.price), 0)
+    cartItems.reduce((total, item) => (total += item.quantity * item.price), 0)
 
   const [form, setForm] = React.useState({
     phone: '',
@@ -40,12 +41,12 @@ const Checkout = (props) => {
   }
 
   const handleDecrease = (item) => {
-    dispatch(incrementItem(item.id))
+    dispatch(decrementItem(item.id))
 
-    const newOrder = myOrder.map((order) =>
-      order.pizza === item.pizza ? { ...order, quantity: --item.quantity } : order,
-    )
-    setMyOrder(newOrder)
+    // const newOrder = myOrder.map((order) =>
+    //   order.pizza === item.pizza ? { ...order, quantity: --item.quantity } : order,
+    // )
+    // setMyOrder(newOrder)
     setForm({
       ...form,
       totalPrice: calculateTotalPrice(),
@@ -53,12 +54,12 @@ const Checkout = (props) => {
   }
 
   const handleIncrease = (item) => {
-    dispatch(decrementItem(item.id))
+    dispatch(incrementItem(item.id))
 
-    const newOrder = myOrder.map((order) =>
-      order.pizza === item.pizza ? { ...order, quantity: ++item.quantity } : order,
-    )
-    setMyOrder(newOrder)
+    // const newOrder = myOrder.map((order) =>
+    //   order.pizza === item.pizza ? { ...order, quantity: ++item.quantity } : order,
+    // )
+    // setMyOrder(newOrder)
     setForm({
       ...form,
       totalPrice: calculateTotalPrice(),
@@ -71,9 +72,9 @@ const Checkout = (props) => {
       <Styled.Cart>
         <Styled.Header>Shopping Cart</Styled.Header>
         <Styled.List>
-          {myOrder.map((item) => (
+          {cartItems.map((item) => (
             <Styled.Item key={item.name}>
-              <Styled.Image src={pizza} />
+              <Styled.Image src={item.image} />
 
               <Styled.Info>
                 <h1>Pizza {item.name}</h1>
