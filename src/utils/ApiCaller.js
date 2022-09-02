@@ -1,7 +1,7 @@
 import Axios from 'axios'
 import objectAssign from 'object-assign'
 
-import { API_URL } from '../config'
+const API_URL = 'https://private-anon-05b3bcbaa2-pizzaapp.apiary-mock.com'
 
 export const request = (endpoint, method, headers = {}, params = {}, body = {}) => {
   return Axios({
