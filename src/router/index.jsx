@@ -1,7 +1,7 @@
 import { Routes, Route, Navigate,BrowserRouter } from 'react-router-dom'
 import SignUp from '../page/sign-up/sign-up.component'
 import SignIn from '../page/sign-in/sign-in.component'
-import Home from '../page/home'
+import Home from '../page/home/index'
 import { PrivateRoute } from './PrivateRoute.component'
 import { PublicRoute } from './PublicRoute.component'
 import Checkout from '../page/Checkout/checkout'

@@ -1,13 +1,11 @@
 import { Outlet, Link } from 'react-router-dom'
-import { useContext } from 'react'
-import { UserContext } from '../../context/user.context'
 import { signOutUser } from '../../utils/firebase.utils'
 import { useSelector } from 'react-redux'
-import { selectCurrentUser } from '../../store/user/user.selector'
+
 import './Navigation.styles.scss'
 
 const Navigation = () => {
-  const currentUser = useSelector(selectCurrentUser)
+  const currentUser = useSelector((state) => state.user.currentUser)
   // const signOutHandler = async () => {
   //   const res = await signOutUser()
   //   setCurrentUser(res)
