@@ -2,9 +2,12 @@ import { Outlet, Link } from 'react-router-dom'
 import { useContext } from 'react'
 import { UserContext } from '../../context/user.context'
 import { signOutUser } from '../../utils/firebase.utils'
+import { useSelector } from 'react-redux'
+import { selectCurrentUser } from '../../store/user/user.selector'
 import './Navigation.styles.scss'
+
 const Navigation = () => {
-  const { currentUser } = useContext(UserContext)
+  const currentUser = useSelector(selectCurrentUser)
   // const signOutHandler = async () => {
   //   const res = await signOutUser()
   //   setCurrentUser(res)
@@ -19,12 +22,6 @@ const Navigation = () => {
           <Link className="nav-link" to="/home">
             Home
           </Link>
-          <Link className="nav-link" to="/aboutUs">
-            About Us
-          </Link>
-          <Link className="nav-link" to="/menu">
-            Menu
-          </Link>
           <Link className="nav-link" to="/order">
             Order
           </Link>
@@ -33,7 +30,9 @@ const Navigation = () => {
               Sign Out
             </span>
           ) : (
-            <span>hi</span>
+            <Link className="nav-link" to="/login">
+              Login
+            </Link>
           )}
         </div>
       </div>

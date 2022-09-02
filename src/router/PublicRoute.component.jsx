@@ -1,8 +1,8 @@
 import { Outlet, Navigate } from 'react-router-dom'
-import { useContext } from 'react'
-import { UserContext } from '../context/user.context'
+import { useSelector } from 'react-redux'
+import { selectCurrentUser } from './../store/user/user.selector'
 
 export const PublicRoute = () => {
-  const { currentUser } = useContext(UserContext)
+  const currentUser = useSelector(selectCurrentUser)
   return !currentUser || currentUser.length <= 0 ? <Outlet /> : <Navigate to="/" replace />
 }

@@ -4,7 +4,7 @@ import SignIn from '../page/sign-in/sign-in.component'
 import Home from '../page/home'
 import { PrivateRoute } from './PrivateRoute.component'
 import { PublicRoute } from './PublicRoute.component'
-
+import Checkout from '../page/Checkout/checkout'
 export const publicRoute = [
   {
     name: 'login',
@@ -28,12 +28,12 @@ export const privateRoute = [
 export const Switch = () => {
   return (
     <Routes>
-      <Route path="/" element={<PrivateRoute />}>
+      <Route element={<PrivateRoute />}>
         {privateRoute.map((route) => (
           <Route key={route.name} exact={true} path={route.path} element={route.element} />
         ))}
       </Route>
-      <Route element={<PublicRoute />}>
+      <Route path="/" element={<PublicRoute />}>
         {publicRoute.map((route) => (
           <Route key={route.name} exact={true} path={route.path} element={route.element} />
         ))}

@@ -5,8 +5,10 @@ import { FormInputLabel, Input, Group } from './form-input.styles.jsx'
 const FormInput = ({ label, nameRegister, ...otherProps }) => {
   const {
     register,
-    formState: { isDirty, errors },
+    watch,
+    formState: { isDirty },
   } = useFormContext()
+  const registerField = watch(`${nameRegister}`)
 
   // {errors.email && <p>Email is required</p>}
   // {errors.password && <p>Password is required</p>}
@@ -14,7 +16,7 @@ const FormInput = ({ label, nameRegister, ...otherProps }) => {
   // {errors.confirmPassword && <p>Confirm Password is required</p>}
   return (
     <Group>
-      {label && <FormInputLabel shrink={isDirty}>{label}</FormInputLabel>}
+      {label && <FormInputLabel shrink={registerField.length}>{label}</FormInputLabel>}
       <Input {...otherProps} {...register(`${nameRegister}`)} />
     </Group>
   )

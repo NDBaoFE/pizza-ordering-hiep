@@ -1,9 +1,11 @@
 import { Navigate, Outlet, useLocation } from 'react-router-dom'
-import { useContext } from 'react'
-import { UserContext } from '../context/user.context'
+
+import { useSelector } from 'react-redux'
+import { selectCurrentUser } from './../store/user/user.selector'
 export const PrivateRoute = () => {
-  const { currentUser } = useContext(UserContext)
+  const currentUser = useSelector(selectCurrentUser)
   const location = useLocation()
+  console.log(currentUser)
   return currentUser && currentUser.uid.length >= 0 ? (
     <Outlet />
   ) : (
