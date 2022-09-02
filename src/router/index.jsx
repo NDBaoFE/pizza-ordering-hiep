@@ -1,4 +1,4 @@
-import { Routes, Route, Navigate } from 'react-router-dom'
+import { Routes, Route, Navigate,BrowserRouter } from 'react-router-dom'
 import SignUp from '../page/sign-up/sign-up.component'
 import SignIn from '../page/sign-in/sign-in.component'
 import Home from '../page/home'
@@ -27,6 +27,7 @@ export const privateRoute = [
 
 export const Switch = () => {
   return (
+    <BrowserRouter>
     <Routes>
       <Route element={<PrivateRoute />}>
         {privateRoute.map((route) => (
@@ -40,6 +41,7 @@ export const Switch = () => {
       </Route>
       <Route element={<Navigate to="/" replace />} />
     </Routes>
+    </BrowserRouter>
   )
 }
 export default Switch
