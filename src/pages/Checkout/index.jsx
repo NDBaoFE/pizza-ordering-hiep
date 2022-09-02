@@ -60,6 +60,7 @@ const Checkout = (props) => {
     //   order.pizza === item.pizza ? { ...order, quantity: ++item.quantity } : order,
     // )
     // setMyOrder(newOrder)
+
     setForm({
       ...form,
       totalPrice: calculateTotalPrice(),
