@@ -24,10 +24,12 @@ export const Background = styled.div`
 export const Cart = styled.div`
   padding: 2rem;
   display: block;
-  background-color: #d9d9d9;
   flex: 1;
   border-top-left-radius: 40px;
   border-bottom-left-radius: 40px;
+  background: linear-gradient(114.83deg, rgba(255, 255, 255, 0.5) 0.8%, rgba(3, 17, 30, 0) 101.31%);
+  backdrop-filter: blur(40px);
+  color: #fff;
 `
 
 export const Header = styled.header`
@@ -67,8 +69,10 @@ export const Info = styled.div`
 export const Button = styled.button``
 export const Price = styled.span`
   margin: 0 1rem;
-  font-size: 2rem;
+  font-size: 2.4rem;
   color: red;
+  font-weight: 600;
+  color: orange;
 `
 export const CloseButton = styled.button`
   margin: 0 1rem;
@@ -79,10 +83,9 @@ export const Payment = styled.div`
   box-sizing: border-box;
   padding: 2rem;
   min-width: 400px;
-  /* background-color: yellow; */
+  background-color: #000;
   border-top-right-radius: 40px;
   border-bottom-right-radius: 40px;
-  backdrop-filter: blur(20px);
   display: flex;
   flex-direction: column;
 `
@@ -129,7 +132,7 @@ export const InputBtn = styled.input`
   width: 300px;
   font-size: 1rem;
   border-radius: 8px;
-  border: 3px solid orange;
+  /* border: 3px solid orange; */
   padding: 12px 16px;
   margin-bottom: 8px;
   background-color: ${(props) => (props.submit ? 'orange' : 'white')};

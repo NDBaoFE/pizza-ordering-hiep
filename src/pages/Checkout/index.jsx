@@ -2,16 +2,22 @@ import React from 'react'
 import * as Styled from './Checkout.styled'
 import pizza from '../../assets/pizza.jpg'
 import momo from '../../assets/momo.jpg'
+import productApi from '../../utils/productApi'
+import { useSelector, useDispatch } from 'react-redux'
+import { removeItem, incrementItem, decrementItem } from '../../store/slices/cartSlice'
 
 const Checkout = (props) => {
+  const { cartItems } = useSelector((state) => state.cart)
+  const dispatch = useDispatch()
+
   const [myOrder, setMyOrder] = React.useState([
-    { pizza: 'Bảo', amount: 3, price: 25 },
-    { pizza: 'Minh', amount: 2, price: 50 },
-    { pizza: 'Đăng', amount: 1, price: 75 },
+    { name: 'Bảo', quantity: 3, price: 25 },
+    { name: 'Minh', quantity: 2, price: 50 },
+    { name: 'Đăng', quantity: 1, price: 75 },
   ])
 
   const calculateTotalPrice = () =>
-    myOrder.reduce((total, item) => (total += item.amount * item.price), 0)
+    myOrder.reduce((total, item) => (total += item.quantity * item.price), 0)
 
   const [form, setForm] = React.useState({
     phone: '',
@@ -19,7 +25,12 @@ const Checkout = (props) => {
     totalPrice: calculateTotalPrice(),
   })
 
-  const onSubmit = () => {
+  const onSubmit = async () => {
+    const getOrderFromAPI = await productApi.getOrder()
+    const placeOrderToAPI = await productApi.placeOrder()
+    console.log('getOrderFromAPI: ', getOrderFromAPI.data)
+    console.log('placeOrderToAPI: ', placeOrderToAPI.data)
+
     alert(JSON.stringify(form))
     setForm({
       phone: '',
@@ -29,8 +40,10 @@ const Checkout = (props) => {
   }
 
   const handleDecrease = (item) => {
+    dispatch(incrementItem(item.id))
+
     const newOrder = myOrder.map((order) =>
-      order.pizza === item.pizza ? { ...order, amount: --item.amount } : order,
+      order.pizza === item.pizza ? { ...order, quantity: --item.quantity } : order,
     )
     setMyOrder(newOrder)
     setForm({
@@ -40,8 +53,10 @@ const Checkout = (props) => {
   }
 
   const handleIncrease = (item) => {
+    dispatch(decrementItem(item.id))
+
     const newOrder = myOrder.map((order) =>
-      order.pizza === item.pizza ? { ...order, amount: ++item.amount } : order,
+      order.pizza === item.pizza ? { ...order, quantity: ++item.quantity } : order,
     )
     setMyOrder(newOrder)
     setForm({
@@ -57,19 +72,19 @@ const Checkout = (props) => {
         <Styled.Header>Shopping Cart</Styled.Header>
         <Styled.List>
           {myOrder.map((item) => (
-            <Styled.Item key={item.pizza}>
+            <Styled.Item key={item.name}>
               <Styled.Image src={pizza} />
 
               <Styled.Info>
-                <h1>Pizza {item.pizza}</h1>
+                <h1>Pizza {item.name}</h1>
                 <div>
                   <button onClick={() => handleDecrease(item)}>-</button>
-                  <button>{item.amount}</button>
+                  <button>{item.quantity}</button>
                   <button onClick={() => handleIncrease(item)}>+</button>
                 </div>
               </Styled.Info>
               <Styled.Price>${item.price}</Styled.Price>
-              <button onClick={() => alert('Chưa làm =))))))')}>Remove</button>
+              <button onClick={() => dispatch(removeItem(item.id))}>Remove</button>
             </Styled.Item>
           ))}
         </Styled.List>
