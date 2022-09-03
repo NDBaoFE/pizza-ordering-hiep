@@ -12,7 +12,7 @@ export const Section = styled.section`
 `
 export const HomeWrapper = styled.section`
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
   background: url(${bg});
   background-size: cover;
   background-repeat: no-repeat;
@@ -33,7 +33,7 @@ export const Footer = styled(Section)`
 export const HomeSec = styled(Section)`
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   flex-direction: column;
   background: transparent;
   img {
@@ -42,6 +42,7 @@ export const HomeSec = styled(Section)`
 `
 export const Hero = styled.div`
   text-align: center;
+  margin-top: 20vh;
   h1 {
     color: #ffffff;
     font-size: 72px;

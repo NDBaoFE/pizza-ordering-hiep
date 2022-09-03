@@ -3,12 +3,14 @@ import styled from 'styled-components'
 import LogoutIcon from '@mui/icons-material/Logout'
 import { useDispatch, useSelector } from 'react-redux'
 import DeleteIcon from '@mui/icons-material/Delete'
+import { Link } from 'react-router-dom'
 import {
   toggleCart,
   removeItem,
   incrementItem,
   decrementItem,
 } from '../../../store/slices/cartSlice'
+import { Navigate } from 'react-router-dom'
 function Cart() {
   const { isCartOpen, cartItems } = useSelector((state) => state.cart)
 
@@ -41,6 +43,13 @@ function Cart() {
   const cartTotal = cartItems
     .map((item) => item.price * item.quantity)
     .reduce((prevValue, currValue) => prevValue + currValue, 0)
+
+  const currentUser = useSelector((state) => state.user.currentUser)
+  const handleCheckout = () => {
+    if (currentUser && currentUser.uid.length >= 0 && cartQuantity > 0) {
+      window.location = '/order'
+    }
+  }
   return (
     <>
       {isCartOpen && (
@@ -76,6 +85,7 @@ function Cart() {
             })
           )}
           <h1>Total:${cartTotal}</h1>
+          <Button onClick={() => handleCheckout()}>Checkout</Button>
         </Container>
       )}
     </>
@@ -136,5 +146,24 @@ const AdjustQuantityContainer = styled.section`
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+`
+export const Button = styled.section`
+  text-transform: uppercase;
+  width: 25%;
+  height: 60px;
+  color: #f2c94c;
+  margin-top: 8vh;
+  font-weight: bold;
+  font-size: 17px;
+  border: 2px solid #f2c94c;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.4s ease-in-out all;
+  cursor: pointer;
+  &:hover {
+    background: #f2c94c;
+    color: black;
   }
 `

@@ -4,6 +4,9 @@ import {
   signInAuthUserWithEmailAndPasword,
 } from '../../utils/firebase.utils'
 import { useForm, FormProvider } from 'react-hook-form'
+import Navigation from '../../Component/Navigation/Navigation.component'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { Link } from 'react-router-dom'
 import FormInput from '../../Component/form-input/form-input.component'
 // import { useContext } from 'react'
@@ -33,33 +36,99 @@ const SignIn = () => {
     } catch (error) {
       switch (error.code) {
         case 'auth/invalid-email':
-          alert('Your email is not valid.\nPlease enter a valid email.')
+          toast.error('Invalid Email!!', {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            });
+            
           break
         case 'auth/weak-password':
-          alert('Your password must have at least 6 characters.')
+          toast.error('Your password must have at least 6 characters.', {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme:"colored",
+            });
           break
         case 'auth/user-disabled':
-          alert('This account has been banned.\nPlease contact with us for more information.')
+          toast.error('This account has been banned.\nPlease contact with us for more information.', {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme:"colored",
+            });
           break
         case 'auth/user-not-found':
-          alert('There is no user with your email.\nPlease register a new account instead.')
+          toast.error('There is no user with your email.\nPlease register a new account instead.', {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme:"colored",
+            });
           break
         case 'auth/wrong-password':
-          alert('Your password is incorrect.')
+          toast.error('Your password is incorrect!!', {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme:"colored",
+            });
           break
         case 'auth/email-already-in-use':
-          alert('Your email is already in use.\nPlease try to login instead.')
+          toast.error('Your email is already in use.\nPlease try to login instead!!', {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme:"colored",
+            });
           break
 
         default:
           console.log('user Sign In encountered an error', error)
-          alert('Sorry, you need to fill in all the blank')
+          toast.error('Please fill in all the blanks!', {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme:"colored",
+            });
+            
       }
     }
   }
+ 
 
   return (
     <>
+    <Navigation />
       <FormProvider {...methods}>
         <div className="container">
           <form className="signUpForm" onSubmit={methods.handleSubmit(onSubmit)}>
@@ -82,6 +151,18 @@ const SignIn = () => {
             </div>
           </form>
         </div>
+        <ToastContainer 
+      
+position="top-right"
+autoClose={5000}
+hideProgressBar={false}
+newestOnTop={false}
+closeOnClick
+rtl={false}
+pauseOnFocusLoss
+draggable
+pauseOnHover
+/>
       </FormProvider>
     </>
   )

@@ -17,7 +17,7 @@ const Navigation = () => {
           <h3 className="logo">Logo</h3>
         </Link>
         <div className="nav-links-container">
-          <Link className="nav-link" to="/home">
+          <Link className="nav-link" to="/">
             Home
           </Link>
           <Link className="nav-link" to="/order">

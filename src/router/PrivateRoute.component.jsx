@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux'
 export const PrivateRoute = () => {
   const currentUser = useSelector((state) => state.user.currentUser)
   const location = useLocation()
-  console.log(currentUser)
+  alert(currentUser)
   return currentUser && currentUser.uid.length >= 0 ? (
     <Outlet />
   ) : (

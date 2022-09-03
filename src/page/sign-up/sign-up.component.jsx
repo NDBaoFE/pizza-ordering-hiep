@@ -3,6 +3,9 @@ import FormInput from '../../Component/form-input/form-input.component'
 import './sign-up.component.scss'
 import { useNavigate } from 'react-router-dom'
 import { useState } from 'react'
+import { ToastContainer, toast } from 'react-toastify';
+import Navigation from '../../Component/Navigation/Navigation.component'
+import 'react-toastify/dist/ReactToastify.css';
 import {
   createAuthUserWithEmailAndPasword,
   createUserDoccumentFromAuth,
@@ -25,12 +28,30 @@ const SignUp = () => {
     const { displayName, email, password, confirmPassword } = values
     methods.reset()
     if (password !== confirmPassword) {
-      alert('your password do not match')
+      toast.error('Your password does not match!!', {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme:"colored",
+        });
       return
     }
     const signUpSuccess = (user) => {
       if (user) {
-        alert('Success Sign Up')
+        toast.success('Succesfully Sign Up', {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme:"colored",
+          });
         // setSuccess(true)
         navigate('/login')
       }
@@ -44,32 +65,96 @@ const SignUp = () => {
     } catch (error) {
       switch (error.code) {
         case 'auth/invalid-email':
-          alert('Your email is not valid.\nPlease enter a valid email.')
+          toast.error('Your email is not valid.\nPlease enter a valid email.', {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme:"colored",
+            });
           break
         case 'auth/weak-password':
-          alert('Your password must have at least 6 characters.')
+          toast.error('Your password must have at least 6 characters.', {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme:"colored",
+            });
           break
         case 'auth/user-disabled':
-          alert('This account has been banned.\nPlease contact with us for more information.')
+          toast.error('This account has been banned.\nPlease contact with us for more information.', {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme:"colored",
+            });
           break
         case 'auth/user-not-found':
-          alert('There is no user with your email.\nPlease register a new account instead.')
+          toast.error('There is no user with your email.\nPlease register a new account instead.', {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme:"colored",
+            });
           break
         case 'auth/wrong-password':
-          alert('Your password is incorrect.')
+          toast.error('Your password is incorrect.', {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme:"colored",
+            });
           break
         case 'auth/email-already-in-use':
-          alert('Your email is already in use.\nPlease try to login instead.')
+          toast.error('Your email is already in use.\nPlease try to login instead.', {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme:"colored",
+            });
           break
 
         default:
           console.log('user Sign In encountered an error', error)
-          alert('Sorry, you need to fill in all the blank')
+          toast.error('Sorry, you need to fill in all the blank', {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme:"colored",
+            });
       }
     }
   }
   return (
     <>
+        <Navigation />
       <FormProvider {...methods}>
         <div className="container">
           <form className="signUpForm" onSubmit={methods.handleSubmit(onSubmit)}>
@@ -80,7 +165,19 @@ const SignUp = () => {
             <FormInput type="password" label="Confirm Password" nameRegister={'confirmPassword'} />
             <input className="signUpBtn" type="submit" value={'Sign Up'} />
           </form>
+          <ToastContainer
+position="top-right"
+autoClose={5000}
+hideProgressBar={false}
+newestOnTop={false}
+closeOnClick
+rtl={false}
+pauseOnFocusLoss
+draggable
+pauseOnHover
+/>
         </div>
+       
       </FormProvider>
     </>
   )

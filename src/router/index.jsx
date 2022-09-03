@@ -16,13 +16,20 @@ export const publicRoute = [
     path: '/signUp',
     element: <SignUp />,
   },
+ 
 ]
 export const privateRoute = [
+  {
+    name: 'checkout',
+    path: '/order',
+    element: <Checkout />,
+  },
   {
     name: 'home',
     path: '/',
     element: <Home />,
   },
+ 
 ]
 
 export const Switch = () => {
