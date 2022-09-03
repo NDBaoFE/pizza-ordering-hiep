@@ -4,7 +4,9 @@ import SignIn from '../page/sign-in/sign-in.component'
 import Home from '../page/home/index'
 import { PrivateRoute } from './PrivateRoute.component'
 import { PublicRoute } from './PublicRoute.component'
+import { HomeRoute } from './HomeRoute.component'
 import Checkout from '../page/Checkout/checkout'
+import { useSelector } from 'react-redux'
 export const publicRoute = [
   {
     name: 'login',
@@ -17,6 +19,14 @@ export const publicRoute = [
     element: <SignUp />,
   },
  
+ 
+]
+export const homeRoute=[
+  {
+    name: 'home',
+    path: '/',
+    element: <Home />,
+  },
 ]
 export const privateRoute = [
   {
@@ -24,20 +34,24 @@ export const privateRoute = [
     path: '/order',
     element: <Checkout />,
   },
-  {
-    name: 'home',
-    path: '/',
-    element: <Home />,
-  },
+  
+  
  
 ]
 
 export const Switch = () => {
+  const currentUser =   useSelector((state) => state.user.currentUser) 
   return (
     <BrowserRouter>
     <Routes>
-      <Route element={<PrivateRoute />}>
+      
+      <Route element={<PrivateRoute currentUser={currentUser} />}>
         {privateRoute.map((route) => (
+          <Route key={route.name} exact={true} path={route.path} element={route.element} />
+        ))}
+      </Route>
+      <Route path="/" element={<HomeRoute />}>
+        {homeRoute.map((route) => (
           <Route key={route.name} exact={true} path={route.path} element={route.element} />
         ))}
       </Route>
@@ -46,6 +60,7 @@ export const Switch = () => {
           <Route key={route.name} exact={true} path={route.path} element={route.element} />
         ))}
       </Route>
+      
       <Route element={<Navigate to="/" replace />} />
     </Routes>
     </BrowserRouter>

@@ -139,7 +139,7 @@ const SignIn = () => {
             <div className="or">
               <p>OR</p>
             </div>
-            <button type="button " className="googleBtn" onClick={logGoogleUser}>
+            <button type="button" className="googleBtn" onClick={logGoogleUser}>
               sign in with google
             </button>
             <div className="">
