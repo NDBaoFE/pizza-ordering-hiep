@@ -1,6 +1,5 @@
 import {
   SignInWithGooglePopUp,
-  createUserDoccumentFromAuth,
   signInAuthUserWithEmailAndPasword,
 } from '../../utils/firebase.utils'
 import { useForm, FormProvider } from 'react-hook-form'

@@ -5,7 +5,7 @@ import Home from '../page/home/index'
 import { PrivateRoute } from './PrivateRoute.component'
 import { PublicRoute } from './PublicRoute.component'
 import { HomeRoute } from './HomeRoute.component'
-import Checkout from '../page/Checkout/checkout'
+import Checkout from '../page/Checkout/index'
 import { useSelector } from 'react-redux'
 export const publicRoute = [
   {
