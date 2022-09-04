@@ -35,7 +35,7 @@ export const privateRoute = [
 ]
 
 export const Switch = () => {
-  const currentUser = useSelector(async (state) => state.user.currentUser)
+  const currentUser = useSelector((state) => state.user.currentUser)
   return (
     <BrowserRouter>
       <Routes>

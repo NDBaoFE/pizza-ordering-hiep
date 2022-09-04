@@ -7,12 +7,12 @@ function App() {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChangedListener(async (user) => {
+    const unsubscribe = onAuthStateChangedListener((user) => {
       console.log(user)
       if (user) {
         createUserDoccumentFromAuth(user)
       }
-      await setTimeout(dispatch(userReducer(user)), 1000)
+      dispatch(userReducer(user))
     })
     return unsubscribe
   }, [dispatch])
