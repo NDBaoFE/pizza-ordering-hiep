@@ -109,7 +109,7 @@ export const Momo = styled.img`
 
 export const TotalPrice = styled.h1`
   position: relative;
-  margin: 32px auto;
+  margin: 16px auto;
   display: flex;
   &:before {
     content: '';
