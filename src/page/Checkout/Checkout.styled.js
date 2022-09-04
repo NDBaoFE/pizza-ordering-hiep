@@ -41,7 +41,7 @@ export const Header = styled.header`
     display: block;
     width: 250px;
     height: 5px;
-    background-color: orange;
+    background-color: #f2c94c;
   }
 `
 
@@ -68,7 +68,7 @@ export const Info = styled.div`
 `
 
 export const SmallButton = styled.button`
-  background-color: orange;
+  background-color: #f2c94c;
   color: #fff;
 `
 
@@ -82,7 +82,7 @@ export const Price = styled.span`
   font-size: 2.4rem;
   color: red;
   font-weight: 600;
-  color: orange;
+  color: #f2c94c;
 `
 export const CloseButton = styled.button`
   margin: 0 1rem;
@@ -142,10 +142,10 @@ export const InputBtn = styled.input`
   width: 300px;
   font-size: 1rem;
   border-radius: 8px;
-  /* border: 3px solid orange; */
+  /* border: 3px solid #f2c94c; */
   padding: 12px 16px;
   margin-bottom: 8px;
-  background-color: ${(props) => (props.submit ? 'orange' : 'white')};
+  background-color: ${(props) => (props.submit ? '#f2c94c' : 'white')};
   color: ${(props) => (props.submit ? 'white' : 'black')};
 
   &:hover {

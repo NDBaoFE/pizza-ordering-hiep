@@ -88,7 +88,9 @@ function Cart() {
             )}
           </ul>
           <h1>Total:${cartTotal}</h1>
-          <Link to="/order">Checkout</Link>
+          <Button>
+            <Link to="/order">Checkout</Link>
+          </Button>
         </Container>
       )}
     </>
@@ -156,7 +158,7 @@ export const Button = styled.section`
   text-transform: uppercase;
   width: 25%;
   height: 60px;
-  color: #f2c94c;
+
   margin-top: 8vh;
   font-weight: bold;
   font-size: 17px;
@@ -165,6 +167,15 @@ export const Button = styled.section`
   align-items: center;
   justify-content: center;
   transition: 0.4s ease-in-out all;
+  a {
+    transition: 0.4s ease-in-out all;
+    color: #f2c94c !important;
+  }
+  &:hover {
+    a {
+      color: black !important;
+    }
+  }
   cursor: pointer;
   &:hover {
     background: #f2c94c;

@@ -47,6 +47,7 @@ const Checkout = (props) => {
         totalPrice: 0,
       })
       cartItems.map((cartItem) => dispatch(removeItem(cartItem.id)))
+      LocalStorageUtils.removeItem('cart');
     } else {
       toast.error('Please fill in blank!')
     }

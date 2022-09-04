@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux'
 import { userReducer } from './store/user/user.reducer'
 import LocalStorageUtils from './utils/LocalStorageUtils'
 import { createUserDoccumentFromAuth, onAuthStateChangedListener } from './utils/firebase.utils'
-
+import './index.css'
 function App() {
   const dispatch = useDispatch()
 
