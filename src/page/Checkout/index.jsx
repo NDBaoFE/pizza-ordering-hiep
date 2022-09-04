@@ -24,8 +24,6 @@ const Checkout = (props) => {
     totalPrice: calculateTotalPrice(),
   })
 
-  console.log(form.totalPrice)
-
   const onSubmit = async () => {
     if (form.phone && form.address) {
       const getOrderFromAPI = await productApi.getOrder()
