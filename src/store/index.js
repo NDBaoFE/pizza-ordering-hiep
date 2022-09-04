@@ -4,8 +4,7 @@ import rootReducer from './user/user.reducer'
 const store = configureStore({
   reducer: {
     cart: cartReducer,
-    user: rootReducer
-    
+    user: rootReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

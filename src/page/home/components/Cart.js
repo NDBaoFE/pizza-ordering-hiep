@@ -45,9 +45,11 @@ function Cart() {
     .reduce((prevValue, currValue) => prevValue + currValue, 0)
 
   const currentUser = useSelector((state) => state.user.currentUser)
-  const handleCheckout = () => {
+  const handleCheckout = (e) => {
     if (currentUser && currentUser.uid.length >= 0 && cartQuantity > 0) {
       window.location = '/order'
+    } else {
+      console.log('false')
     }
   }
   return (
@@ -85,7 +87,7 @@ function Cart() {
             })
           )}
           <h1>Total:${cartTotal}</h1>
-          <Button onClick={() => handleCheckout()}>Checkout</Button>
+          <Link to="/order">Checkout</Link>
         </Container>
       )}
     </>

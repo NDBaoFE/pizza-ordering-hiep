@@ -3,6 +3,7 @@ import { signOutUser } from '../../utils/firebase.utils'
 import { useSelector } from 'react-redux'
 
 import './Navigation.styles.scss'
+import { useEffect } from 'react'
 
 const Navigation = () => {
   const currentUser = useSelector((state) => state.user.currentUser)
@@ -10,6 +11,9 @@ const Navigation = () => {
   //   const res = await signOutUser()
   //   setCurrentUser(res)
   // }
+  useEffect(()=>{
+
+  },[signOutUser])
   return (
     <>
       <div className="navigation">

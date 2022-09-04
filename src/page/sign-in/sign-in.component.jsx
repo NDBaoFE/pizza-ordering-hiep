@@ -1,6 +1,5 @@
 import {
   SignInWithGooglePopUp,
-  createUserDoccumentFromAuth,
   signInAuthUserWithEmailAndPasword,
 } from '../../utils/firebase.utils'
 import { useForm, FormProvider } from 'react-hook-form'
@@ -139,7 +138,7 @@ const SignIn = () => {
             <div className="or">
               <p>OR</p>
             </div>
-            <button type="button " className="googleBtn" onClick={logGoogleUser}>
+            <button type="button" className="googleBtn" onClick={logGoogleUser}>
               sign in with google
             </button>
             <div className="">
