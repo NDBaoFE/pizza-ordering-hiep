@@ -1,4 +1,4 @@
-import { Routes, Route, Navigate,BrowserRouter } from 'react-router-dom'
+import { Routes, Route, Navigate, BrowserRouter } from 'react-router-dom'
 import SignUp from '../page/sign-up/sign-up.component'
 import SignIn from '../page/sign-in/sign-in.component'
 import Home from '../page/home/index'
@@ -16,7 +16,6 @@ export const publicRoute = [
     path: '/signUp',
     element: <SignUp />,
   },
- 
 ]
 export const privateRoute = [
   {
@@ -29,25 +28,25 @@ export const privateRoute = [
     path: '/',
     element: <Home />,
   },
- 
 ]
 
 export const Switch = () => {
+  //<Route element={<Navigate to="/" replace />} />
   return (
     <BrowserRouter>
-    <Routes>
-      <Route element={<PrivateRoute />}>
-        {privateRoute.map((route) => (
-          <Route key={route.name} exact={true} path={route.path} element={route.element} />
-        ))}
-      </Route>
-      <Route path="/" element={<PublicRoute />}>
-        {publicRoute.map((route) => (
-          <Route key={route.name} exact={true} path={route.path} element={route.element} />
-        ))}
-      </Route>
-      <Route element={<Navigate to="/" replace />} />
-    </Routes>
+      <Routes>
+        <Route element={<Home />} />
+        <Route element={<PrivateRoute />}>
+          {privateRoute.map((route) => (
+            <Route key={route.name} exact={true} path={route.path} element={route.element} />
+          ))}
+        </Route>
+        <Route element={<PublicRoute />}>
+          {publicRoute.map((route) => (
+            <Route key={route.name} exact={true} path={route.path} element={route.element} />
+          ))}
+        </Route>
+      </Routes>
     </BrowserRouter>
   )
 }

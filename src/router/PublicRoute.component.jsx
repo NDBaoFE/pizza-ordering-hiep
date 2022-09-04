@@ -3,5 +3,5 @@ import { useSelector } from 'react-redux'
 
 export const PublicRoute = () => {
   const currentUser = useSelector((state) => state.user.currentUser)
-  return !currentUser || currentUser.length <= 0 ? <Outlet /> : <Navigate to="/" replace />
+  return !currentUser || currentUser.uid.length <= 0 ? <Outlet /> : <Navigate to="/" replace />
 }
