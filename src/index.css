@@ -8,12 +8,12 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   box-sizing: border-box;
-overflow-x:hidden;
+  overflow-x: hidden;
 }
 
-p{
+p {
   font-family: 'Ruda', sans-serif;
-  font-size:25px;
+  font-size: 25px;
 }
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
@@ -27,25 +27,25 @@ a {
   margin: 0;
   box-sizing: border-box;
 }
-.overflow_hide{
+.overflow_hide {
   overflow: hidden;
 }
 .Toastify__toast-container {
   width: 320px;
 }
 .Toastify__toast--default {
-    background: #fff;
-    color: #aaa;
- }
-  .Toastify__toast--info {
-    background: #3498db;
- }
-  .Toastify__toast--success {
-    background: #07bc0c;
- }
-  .Toastify__toast--warning {
-    background: #f1c40f;
- }
-  .Toastify__toast--error {
-    background: #e74c3c;
- }
+  background: #fff;
+  color: #aaa;
+}
+.Toastify__toast--info {
+  background: #3498db;
+}
+.Toastify__toast--success {
+  background: #07bc0c;
+}
+.Toastify__toast--warning {
+  background: #f1c40f;
+}
+.Toastify__toast--error {
+  background: #e74c3c;
+}

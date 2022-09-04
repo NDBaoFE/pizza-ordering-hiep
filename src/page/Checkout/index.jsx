@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { removeItem, incrementItem, decrementItem } from '../../store/slices/cartSlice'
 import { ToastContainer, toast } from 'react-toastify'
 import LocalStorageUtils from '../../utils/LocalStorageUtils'
+import { Navigate } from 'react-router-dom'
 
 const Checkout = (props) => {
   const { cartItems } = useSelector((state) => state.cart)
@@ -49,6 +50,7 @@ const Checkout = (props) => {
     } else {
       toast.error('Please fill in blank!')
     }
+    window.location = '/'
   }
 
   const handleDecrease = (item) => {

@@ -15,7 +15,6 @@ export const FormInputLabel = styled.label`
   font-weight: normal;
   position: absolute;
   pointer-events: none;
-  // opacity: 0.75;
   left: 10px;
   top: 10px;
   transition: 300ms ease all;
@@ -29,7 +28,6 @@ export const Input = styled.input`
   font-size: 20px;
   padding: 10px 10px 10px 10px;
   border: none;
-  // border: 2px solid #f17119;
   border-radius: 15px;
 
   &:focus {

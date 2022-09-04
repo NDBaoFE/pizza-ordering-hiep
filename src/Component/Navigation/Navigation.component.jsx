@@ -4,8 +4,12 @@ import { useSelector, useDispatch } from 'react-redux'
 import AvaDropdown from '../profile/ava.component'
 import { toggleAva } from '../../store/user/user.reducer'
 import './Navigation.styles.scss'
-import { useEffect } from 'react'
+import { useState, useEffect } from 'react'
+import { signOutUser } from '../../utils/firebase.utils'
+import LocalStorageUtils from '../../utils/LocalStorageUtils'
+
 const Navigation = () => {
+  const [ava, setAva] = useState(LocalStorageUtils.getItem('avatar') || '')
   const { currentUser, isAvaOpen } = useSelector((state) => state.user)
   const dispatch = useDispatch()
   const ToggleAva = () => {
@@ -15,6 +19,8 @@ const Navigation = () => {
     }
     dispatch(toggleAva(false))
   }
+
+  useEffect(() => {}, [signOutUser])
 
   return (
     <>
@@ -33,7 +39,10 @@ const Navigation = () => {
             <span className="nav-link" onClick={ToggleAva}>
               <img
                 className="userAva"
-                src="https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png"
+                src={
+                  ava ||
+                  'https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png'
+                }
                 alt="ava"
               />
             </span>

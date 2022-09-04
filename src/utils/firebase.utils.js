@@ -9,6 +9,7 @@ import {
   onAuthStateChanged,
 } from 'firebase/auth'
 import { getFirestore, doc, getDoc, setDoc } from 'firebase/firestore'
+
 const firebaseConfig = {
   apiKey: 'AIzaSyDkLglzqr0KHzI3dbEvGD9h7Bk01JvYD7I',
   authDomain: 'pizza-db-c104f.firebaseapp.com',
