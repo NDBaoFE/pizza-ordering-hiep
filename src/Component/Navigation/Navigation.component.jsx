@@ -1,19 +1,27 @@
 import { Outlet, Link } from 'react-router-dom'
-import { signOutUser } from '../../utils/firebase.utils'
-import { useSelector } from 'react-redux'
 
+import { useSelector, useDispatch } from 'react-redux'
+import AvaDropdown from '../profile/ava.component'
+import { toggleAva } from '../../store/user/user.reducer'
 import './Navigation.styles.scss'
-import { useEffect } from 'react'
+import { useState, useEffect } from 'react'
+import { signOutUser } from '../../utils/firebase.utils'
+import LocalStorageUtils from '../../utils/LocalStorageUtils'
 
 const Navigation = () => {
-  const currentUser = useSelector((state) => state.user.currentUser)
-  // const signOutHandler = async () => {
-  //   const res = await signOutUser()
-  //   setCurrentUser(res)
-  // }
-  useEffect(()=>{
+  const [ava, setAva] = useState(LocalStorageUtils.getItem('avatar') || '')
+  const { currentUser, isAvaOpen } = useSelector((state) => state.user)
+  const dispatch = useDispatch()
+  const ToggleAva = () => {
+    if (!isAvaOpen) {
+      dispatch(toggleAva(true))
+      return
+    }
+    dispatch(toggleAva(false))
+  }
 
-  },[signOutUser])
+  useEffect(() => {}, [signOutUser])
+
   return (
     <>
       <div className="navigation">
@@ -28,14 +36,22 @@ const Navigation = () => {
             Order
           </Link>
           {currentUser ? (
-            <span className="nav-link" onClick={signOutUser}>
-              Sign Out
+            <span className="nav-link" onClick={ToggleAva}>
+              <img
+                className="userAva"
+                src={
+                  ava ||
+                  'https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png'
+                }
+                alt="ava"
+              />
             </span>
           ) : (
             <Link className="nav-link" to="/login">
               Login
             </Link>
           )}
+          {currentUser && isAvaOpen && <AvaDropdown />}
         </div>
       </div>
       <Outlet />

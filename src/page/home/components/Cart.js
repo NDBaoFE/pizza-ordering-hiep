@@ -60,31 +60,33 @@ function Cart() {
           </div>
           <h1>Your beloving Cart</h1>
           <h1>{cartQuantity} Pizzas</h1>
-          {cartQuantity === 0 ? (
-            <div>Your cart is Empty 😔</div>
-          ) : (
-            cartItems.map((item) => {
-              const totalPrize = item.price * item.quantity
+          <ul style={{ overflowY: 'scroll' }}>
+            {cartQuantity === 0 ? (
+              <div>Your cart is Empty 😔</div>
+            ) : (
+              cartItems.map((item) => {
+                const totalPrize = item.price * item.quantity
 
-              return (
-                <SubContainer key={item.id}>
-                  <Img src={item.image} />
-                  <InfoContainer>
-                    <h5>{item.name}</h5>
-                    <h5>{totalPrize}</h5>
-                  </InfoContainer>
-                  <AdjustQuantityContainer>
-                    <div onClick={() => handleDecrement(item.id)}>&#8722;</div>
-                    <div>{item.quantity}</div>
-                    <div onClick={() => handleIncrement(item.id)}>&#43;</div>
-                  </AdjustQuantityContainer>
-                  <section onClick={() => handleRemove(item.id)}>
-                    <DeleteIcon fontSize="large" />
-                  </section>
-                </SubContainer>
-              )
-            })
-          )}
+                return (
+                  <SubContainer key={item.id}>
+                    <Img src={item.image} />
+                    <InfoContainer>
+                      <h5>{item.name}</h5>
+                      <h5>{totalPrize}</h5>
+                    </InfoContainer>
+                    <AdjustQuantityContainer>
+                      <div onClick={() => handleDecrement(item.id)}>&#8722;</div>
+                      <div>{item.quantity}</div>
+                      <div onClick={() => handleIncrement(item.id)}>&#43;</div>
+                    </AdjustQuantityContainer>
+                    <section onClick={() => handleRemove(item.id)}>
+                      <DeleteIcon fontSize="large" />
+                    </section>
+                  </SubContainer>
+                )
+              })
+            )}
+          </ul>
           <h1>Total:${cartTotal}</h1>
           <Link to="/order">Checkout</Link>
         </Container>
@@ -105,6 +107,7 @@ const SubContainer = styled.div`
   }
 `
 const Container = styled.div`
+  top: 0;
   z-index: 99;
   height: 100vh;
   color: #f2c94c;

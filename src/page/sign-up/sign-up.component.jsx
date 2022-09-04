@@ -3,16 +3,20 @@ import FormInput from '../../Component/form-input/form-input.component'
 import './sign-up.component.scss'
 import { useNavigate } from 'react-router-dom'
 import { useState } from 'react'
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify'
 import Navigation from '../../Component/Navigation/Navigation.component'
-import 'react-toastify/dist/ReactToastify.css';
+import 'react-toastify/dist/ReactToastify.css'
 import {
   createAuthUserWithEmailAndPasword,
   createUserDoccumentFromAuth,
 } from '../../utils/firebase.utils'
 
+import LocalStorageUtils from '../../utils/LocalStorageUtils'
+import { userReducer } from '../../store/user/user.reducer'
+import { useDispatch } from 'react-redux'
+
 const SignUp = () => {
-  // const [success, setSuccess] = useState(false)
+  const dispatch = useDispatch()
   const navigate = useNavigate()
   const methods = useForm({
     defaultValues: {
@@ -29,29 +33,29 @@ const SignUp = () => {
     methods.reset()
     if (password !== confirmPassword) {
       toast.error('Your password does not match!!', {
-        position: "top-right",
+        position: 'top-right',
         autoClose: 5000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
-        theme:"colored",
-        });
+        theme: 'colored',
+      })
       return
     }
     const signUpSuccess = (user) => {
       if (user) {
         toast.success('Succesfully Sign Up', {
-          position: "top-right",
+          position: 'top-right',
           autoClose: 5000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
           draggable: true,
           progress: undefined,
-          theme:"colored",
-          });
+          theme: 'colored',
+        })
         // setSuccess(true)
         navigate('/login')
       }
@@ -59,6 +63,8 @@ const SignUp = () => {
     }
     try {
       const { user } = await createAuthUserWithEmailAndPasword(email, password)
+      LocalStorageUtils.setItem('token', user.uid)
+      dispatch(userReducer(user))
 
       await createUserDoccumentFromAuth(user, { displayName })
       signUpSuccess(user.uid)
@@ -66,95 +72,98 @@ const SignUp = () => {
       switch (error.code) {
         case 'auth/invalid-email':
           toast.error('Your email is not valid.\nPlease enter a valid email.', {
-            position: "top-right",
+            position: 'top-right',
             autoClose: 5000,
             hideProgressBar: false,
             closeOnClick: true,
             pauseOnHover: true,
             draggable: true,
             progress: undefined,
-            theme:"colored",
-            });
+            theme: 'colored',
+          })
           break
         case 'auth/weak-password':
           toast.error('Your password must have at least 6 characters.', {
-            position: "top-right",
+            position: 'top-right',
             autoClose: 5000,
             hideProgressBar: false,
             closeOnClick: true,
             pauseOnHover: true,
             draggable: true,
             progress: undefined,
-            theme:"colored",
-            });
+            theme: 'colored',
+          })
           break
         case 'auth/user-disabled':
-          toast.error('This account has been banned.\nPlease contact with us for more information.', {
-            position: "top-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme:"colored",
-            });
+          toast.error(
+            'This account has been banned.\nPlease contact with us for more information.',
+            {
+              position: 'top-right',
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: 'colored',
+            },
+          )
           break
         case 'auth/user-not-found':
           toast.error('There is no user with your email.\nPlease register a new account instead.', {
-            position: "top-right",
+            position: 'top-right',
             autoClose: 5000,
             hideProgressBar: false,
             closeOnClick: true,
             pauseOnHover: true,
             draggable: true,
             progress: undefined,
-            theme:"colored",
-            });
+            theme: 'colored',
+          })
           break
         case 'auth/wrong-password':
           toast.error('Your password is incorrect.', {
-            position: "top-right",
+            position: 'top-right',
             autoClose: 5000,
             hideProgressBar: false,
             closeOnClick: true,
             pauseOnHover: true,
             draggable: true,
             progress: undefined,
-            theme:"colored",
-            });
+            theme: 'colored',
+          })
           break
         case 'auth/email-already-in-use':
           toast.error('Your email is already in use.\nPlease try to login instead.', {
-            position: "top-right",
+            position: 'top-right',
             autoClose: 5000,
             hideProgressBar: false,
             closeOnClick: true,
             pauseOnHover: true,
             draggable: true,
             progress: undefined,
-            theme:"colored",
-            });
+            theme: 'colored',
+          })
           break
 
         default:
           console.log('user Sign In encountered an error', error)
           toast.error('Sorry, you need to fill in all the blank', {
-            position: "top-right",
+            position: 'top-right',
             autoClose: 5000,
             hideProgressBar: false,
             closeOnClick: true,
             pauseOnHover: true,
             draggable: true,
             progress: undefined,
-            theme:"colored",
-            });
+            theme: 'colored',
+          })
       }
     }
   }
   return (
     <>
-        <Navigation />
+      <Navigation />
       <FormProvider {...methods}>
         <div className="container">
           <form className="signUpForm" onSubmit={methods.handleSubmit(onSubmit)}>
@@ -166,18 +175,17 @@ const SignUp = () => {
             <input className="signUpBtn" type="submit" value={'Sign Up'} />
           </form>
           <ToastContainer
-position="top-right"
-autoClose={5000}
-hideProgressBar={false}
-newestOnTop={false}
-closeOnClick
-rtl={false}
-pauseOnFocusLoss
-draggable
-pauseOnHover
-/>
+            position="top-right"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+          />
         </div>
-       
       </FormProvider>
     </>
   )

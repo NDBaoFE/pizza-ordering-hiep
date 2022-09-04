@@ -1,24 +1,29 @@
+import { useDispatch } from 'react-redux'
 import {
   SignInWithGooglePopUp,
   signInAuthUserWithEmailAndPasword,
 } from '../../utils/firebase.utils'
 import { useForm, FormProvider } from 'react-hook-form'
 import Navigation from '../../Component/Navigation/Navigation.component'
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 import { Link } from 'react-router-dom'
 import FormInput from '../../Component/form-input/form-input.component'
-// import { useContext } from 'react'
-// import { UserContext } from '../../context/user.context'
 import './sign-in.component.scss'
+import LocalStorageUtils from '../../utils/LocalStorageUtils'
+import { userReducer } from '../../store/user/user.reducer'
 
 const SignIn = () => {
+  const dispatch = useDispatch()
+
   const logGoogleUser = async () => {
-    await SignInWithGooglePopUp()
-    // const usetDocRef = await createUserDoccumentFromAuth(user)
-    // setCurrentUser(user.uid) const { user } =
+    // await SignInWithGooglePopUp()
+    const { user } = await SignInWithGooglePopUp()
+    LocalStorageUtils.setItem('token', user.uid)
+    LocalStorageUtils.setItem('avatar', user.photoURL)
+
+    dispatch(userReducer(user))
   }
-  // const { setCurrentUser } = useContext(UserContext)
   const methods = useForm({
     defaultValues: {
       email: '',
@@ -31,103 +36,106 @@ const SignIn = () => {
     methods.reset()
     try {
       const { user } = await signInAuthUserWithEmailAndPasword(email, password)
+      LocalStorageUtils.setItem('token', user.uid)
+      dispatch(userReducer(user))
       // setCurrentUser(user.uid)
     } catch (error) {
       switch (error.code) {
         case 'auth/invalid-email':
           toast.error('Invalid Email!!', {
-            position: "top-right",
+            position: 'top-right',
             autoClose: 5000,
             hideProgressBar: false,
             closeOnClick: true,
             pauseOnHover: true,
             draggable: true,
             progress: undefined,
-            });
-            
+          })
+
           break
         case 'auth/weak-password':
           toast.error('Your password must have at least 6 characters.', {
-            position: "top-right",
+            position: 'top-right',
             autoClose: 5000,
             hideProgressBar: false,
             closeOnClick: true,
             pauseOnHover: true,
             draggable: true,
             progress: undefined,
-            theme:"colored",
-            });
+            theme: 'colored',
+          })
           break
         case 'auth/user-disabled':
-          toast.error('This account has been banned.\nPlease contact with us for more information.', {
-            position: "top-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme:"colored",
-            });
+          toast.error(
+            'This account has been banned.\nPlease contact with us for more information.',
+            {
+              position: 'top-right',
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: 'colored',
+            },
+          )
           break
         case 'auth/user-not-found':
           toast.error('There is no user with your email.\nPlease register a new account instead.', {
-            position: "top-right",
+            position: 'top-right',
             autoClose: 5000,
             hideProgressBar: false,
             closeOnClick: true,
             pauseOnHover: true,
             draggable: true,
             progress: undefined,
-            theme:"colored",
-            });
+            theme: 'colored',
+          })
           break
         case 'auth/wrong-password':
           toast.error('Your password is incorrect!!', {
-            position: "top-right",
+            position: 'top-right',
             autoClose: 5000,
             hideProgressBar: false,
             closeOnClick: true,
             pauseOnHover: true,
             draggable: true,
             progress: undefined,
-            theme:"colored",
-            });
+            theme: 'colored',
+          })
           break
         case 'auth/email-already-in-use':
           toast.error('Your email is already in use.\nPlease try to login instead!!', {
-            position: "top-right",
+            position: 'top-right',
             autoClose: 5000,
             hideProgressBar: false,
             closeOnClick: true,
             pauseOnHover: true,
             draggable: true,
             progress: undefined,
-            theme:"colored",
-            });
+            theme: 'colored',
+          })
           break
 
         default:
           console.log('user Sign In encountered an error', error)
           toast.error('Please fill in all the blanks!', {
-            position: "top-right",
+            position: 'top-right',
             autoClose: 5000,
             hideProgressBar: false,
             closeOnClick: true,
             pauseOnHover: true,
             draggable: true,
             progress: undefined,
-            theme:"colored",
-            });
-            
+            theme: 'colored',
+          })
       }
     }
   }
- 
 
   return (
     <>
-    <Navigation />
+      <Navigation />
       <FormProvider {...methods}>
         <div className="container">
           <form className="signUpForm" onSubmit={methods.handleSubmit(onSubmit)}>
@@ -150,18 +158,17 @@ const SignIn = () => {
             </div>
           </form>
         </div>
-        <ToastContainer 
-      
-position="top-right"
-autoClose={5000}
-hideProgressBar={false}
-newestOnTop={false}
-closeOnClick
-rtl={false}
-pauseOnFocusLoss
-draggable
-pauseOnHover
-/>
+        <ToastContainer
+          position="top-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+        />
       </FormProvider>
     </>
   )

@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import bg from '../../assets/bg.png'
+import bg from '../../assets/images/wood.png'
 
 export const Background = styled.div`
   box-sizing: border-box;
@@ -66,7 +66,17 @@ export const Image = styled.img`
 export const Info = styled.div`
   flex: 1;
 `
-export const Button = styled.button``
+
+export const SmallButton = styled.button`
+  background-color: orange;
+  color: #fff;
+`
+
+export const RemvoeButton = styled.button`
+  background-color: red;
+  color: #fff;
+`
+
 export const Price = styled.span`
   margin: 0 1rem;
   font-size: 2.4rem;
@@ -99,7 +109,7 @@ export const Momo = styled.img`
 
 export const TotalPrice = styled.h1`
   position: relative;
-  margin: 32px auto;
+  margin: 16px auto;
   display: flex;
   &:before {
     content: '';

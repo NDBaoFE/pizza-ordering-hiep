@@ -20,7 +20,6 @@ const ProductsCard = (props) => {
       setIsAdded(false)
     }, 3000)
   }
-  console.log(props)
 
   return (
     <>

@@ -1,20 +1,23 @@
 import React from 'react'
 import * as Styled from './Checkout.styled'
-import pizza from '../../assets/pizza.jpg'
 import momo from '../../assets/momo.jpg'
 import productApi from '../../utils/productApi'
 import { useSelector, useDispatch } from 'react-redux'
 import { removeItem, incrementItem, decrementItem } from '../../store/slices/cartSlice'
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify'
+import LocalStorageUtils from '../../utils/LocalStorageUtils'
+import { Navigate } from 'react-router-dom'
+
 const Checkout = (props) => {
   const { cartItems } = useSelector((state) => state.cart)
   const dispatch = useDispatch()
 
- 
-
   const calculateTotalPrice = () =>
     // myOrder.reduce((total, item) => (total += item.quantity * item.price), 0)
-    cartItems.reduce((total, item) => (total += item.quantity * item.price), 0)
+    LocalStorageUtils.getItem('cart').reduce(
+      (total, item) => (total += item.quantity * item.price),
+      0,
+    )
 
   const [form, setForm] = React.useState({
     phone: '',
@@ -23,34 +26,40 @@ const Checkout = (props) => {
   })
 
   const onSubmit = async () => {
-    const getOrderFromAPI = await productApi.getOrder()
-    const placeOrderToAPI = await productApi.placeOrder()
-    console.log('getOrderFromAPI: ', getOrderFromAPI.data)
-    console.log('placeOrderToAPI: ', placeOrderToAPI.data)
-    toast.success('Ordering successfully !', {
-      position: "top-right",
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme:"colored",
-      });
-    setForm({
-      phone: '',
-      address: '',
-      totalPrice: calculateTotalPrice(),
-    })
+    if (form.phone && form.address) {
+      const getOrderFromAPI = await productApi.getOrder()
+      const placeOrderToAPI = await productApi.placeOrder()
+      console.log('getOrderFromAPI: ', getOrderFromAPI.data)
+      console.log('placeOrderToAPI: ', placeOrderToAPI.data)
+      toast.success('Ordering successfully !', {
+        position: 'top-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'colored',
+      })
+      setForm({
+        phone: '',
+        address: '',
+        totalPrice: 0,
+      })
+      cartItems.map((cartItem) => dispatch(removeItem(cartItem.id)))
+    } else {
+      toast.error('Please fill in blank!')
+    }
+    window.location = '/'
   }
 
   const handleDecrease = (item) => {
     dispatch(decrementItem(item.id))
-
     // const newOrder = myOrder.map((order) =>
     //   order.pizza === item.pizza ? { ...order, quantity: --item.quantity } : order,
     // )
     // setMyOrder(newOrder)
+    // setMyOrder()
     setForm({
       ...form,
       totalPrice: calculateTotalPrice(),
@@ -84,13 +93,15 @@ const Checkout = (props) => {
               <Styled.Info>
                 <h1>Pizza {item.name}</h1>
                 <div>
-                  <button onClick={() => handleDecrease(item)}>-</button>
-                  <button>{item.quantity}</button>
-                  <button onClick={() => handleIncrease(item)}>+</button>
+                  <Styled.SmallButton onClick={() => handleDecrease(item)}>-</Styled.SmallButton>
+                  <Styled.SmallButton>{item.quantity}</Styled.SmallButton>
+                  <Styled.SmallButton onClick={() => handleIncrease(item)}>+</Styled.SmallButton>
                 </div>
               </Styled.Info>
               <Styled.Price>${item.price}</Styled.Price>
-              <button onClick={() => dispatch(removeItem(item.id))}>Remove</button>
+              <Styled.RemvoeButton onClick={() => dispatch(removeItem(item.id))}>
+                Remove
+              </Styled.RemvoeButton>
             </Styled.Item>
           ))}
         </Styled.List>
@@ -113,17 +124,16 @@ const Checkout = (props) => {
         />
         <Styled.InputBtn submit type="submit" onClick={onSubmit} />
       </Styled.Payment>
-      <ToastContainer 
-      
-      position="top-right"
-      autoClose={5000}
-      hideProgressBar={false}
-      newestOnTop={false}
-      closeOnClick
-      rtl={false}
-      pauseOnFocusLoss
-      draggable
-      pauseOnHover
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
       />
     </Styled.Background>
   )

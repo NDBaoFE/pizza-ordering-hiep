@@ -1,21 +1,25 @@
-import Switch from './router'
 import { useEffect } from 'react'
-import { onAuthStateChangedListener, createUserDoccumentFromAuth } from './utils/firebase.utils'
+import Switch from './router'
 import { useDispatch } from 'react-redux'
 import { userReducer } from './store/user/user.reducer'
+import LocalStorageUtils from './utils/LocalStorageUtils'
+import { createUserDoccumentFromAuth, onAuthStateChangedListener } from './utils/firebase.utils'
+
 function App() {
   const dispatch = useDispatch()
 
+  const uid = LocalStorageUtils.getItem('token')
+  dispatch(userReducer(uid))
+
   useEffect(() => {
-    const unsubscribe = onAuthStateChangedListener(async (user) => {
-      console.log(user)
+    const unsubscribe = onAuthStateChangedListener((user) => {
       if (user) {
         createUserDoccumentFromAuth(user)
       }
-      await setTimeout(dispatch(userReducer(user)), 1000)
     })
     return unsubscribe
   }, [dispatch])
+
   return (
     <>
       <Switch />

@@ -1,4 +1,4 @@
-import { Routes, Route, Navigate,BrowserRouter } from 'react-router-dom'
+import { Routes, Route, Navigate, BrowserRouter } from 'react-router-dom'
 import SignUp from '../page/sign-up/sign-up.component'
 import SignIn from '../page/sign-in/sign-in.component'
 import Home from '../page/home/index'
@@ -18,10 +18,8 @@ export const publicRoute = [
     path: '/signUp',
     element: <SignUp />,
   },
- 
- 
 ]
-export const homeRoute=[
+export const homeRoute = [
   {
     name: 'home',
     path: '/',
@@ -34,35 +32,31 @@ export const privateRoute = [
     path: '/order',
     element: <Checkout />,
   },
-  
-  
- 
 ]
 
 export const Switch = () => {
-  const currentUser =   useSelector((state) => state.user.currentUser) 
+  const currentUser = useSelector((state) => state.user.currentUser)
   return (
     <BrowserRouter>
-    <Routes>
-      
-      <Route element={<PrivateRoute currentUser={currentUser} />}>
-        {privateRoute.map((route) => (
-          <Route key={route.name} exact={true} path={route.path} element={route.element} />
-        ))}
-      </Route>
-      <Route path="/" element={<HomeRoute />}>
-        {homeRoute.map((route) => (
-          <Route key={route.name} exact={true} path={route.path} element={route.element} />
-        ))}
-      </Route>
-      <Route path="/" element={<PublicRoute />}>
-        {publicRoute.map((route) => (
-          <Route key={route.name} exact={true} path={route.path} element={route.element} />
-        ))}
-      </Route>
-      
-      <Route element={<Navigate to="/" replace />} />
-    </Routes>
+      <Routes>
+        <Route element={<PrivateRoute currentUser={currentUser} />}>
+          {privateRoute.map((route) => (
+            <Route key={route.name} exact={true} path={route.path} element={route.element} />
+          ))}
+        </Route>
+        <Route path="/" element={<HomeRoute />}>
+          {homeRoute.map((route) => (
+            <Route key={route.name} exact={true} path={route.path} element={route.element} />
+          ))}
+        </Route>
+        <Route element={<PublicRoute />}>
+          {publicRoute.map((route) => (
+            <Route key={route.name} exact={true} path={route.path} element={route.element} />
+          ))}
+        </Route>
+
+        <Route element={<Navigate to="/" replace />} />
+      </Routes>
     </BrowserRouter>
   )
 }
