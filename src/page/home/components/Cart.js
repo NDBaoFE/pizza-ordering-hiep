@@ -10,7 +10,6 @@ import {
   incrementItem,
   decrementItem,
 } from '../../../store/slices/cartSlice'
-import { Navigate } from 'react-router-dom'
 function Cart() {
   const { isCartOpen, cartItems } = useSelector((state) => state.cart)
 
